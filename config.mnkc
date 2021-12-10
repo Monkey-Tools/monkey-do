@@ -1,4 +1,6 @@
-routes:
+# port for the server to accept requests at
+port: 5000
+handlers:
   - id: hello_world
     method: GET
     route: /world/hello
@@ -10,4 +12,4 @@ routes:
     route: /world/goodbye
     response:
       status: 500
-      body: the world doesn't want to leave!
+      body: goodbye world!

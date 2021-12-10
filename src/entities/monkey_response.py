@@ -3,6 +3,6 @@ from dataclasses import dataclass
 from typing import Union
 
 @dataclass
-class MockResponse():
+class MonkeyResponse():
     status: int
     body: Union[str, dict]
