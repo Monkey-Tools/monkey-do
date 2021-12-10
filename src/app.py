@@ -8,6 +8,7 @@ from entities import MonkeyResponse, MonkeySeeConfig, mnkc_config
 
 
 app = Flask('monkey_do_server')
+MNKC: MonkeySeeConfig = None
 
 
 @app.route('/')
@@ -24,31 +25,32 @@ def mock_point(path: str):
 
 def generate_response(route: str, method: str):
     """TODO: docstring?"""
-    route_config_file = open('config.mnkc')
-    config_yaml = yaml.safe_load(route_config_file.read())
-    mnkc_config = MonkeySeeConfig(**config_yaml)
-
     # TODO: add a way to match parameterized routes
-    handler_matches = list(filter(lambda handler: handler.route == route, mnkc_config.handlers))
+    handler_matches = list(filter(lambda handler: handler.route == route, MNKC.handlers))
 
     if len(handler_matches) == 0:
         return MonkeyResponse(500, f'No handler found matching route: {route}')
     elif len(handler_matches) > 1:
         return MonkeyResponse(500, f'Found multiple matches for route: {route}')
     handler = handler_matches[0]
-    
-    #TODO: Add logic to deal with response scripts and external response.json files
+
+    # TODO: Add logic to deal with response scripts and external response.json files
     # For now just return the response object
+
     return handler.response
 
+
+def load_config(file_name: str):
+    global MNKC
+    mnkc_yaml = yaml.safe_load(open(file_name).read())
+    MNKC = MonkeySeeConfig(**mnkc_yaml)
 
 @command()
 @argument('file')
 def start_server(file):
     """TODO: docstring?"""
-    mnkc_yaml = yaml.safe_load(open(file).read())
-    mnkc_config = MonkeySeeConfig(**mnkc_yaml)
-    app.run(debug=True, port=mnkc_config.port)
+    load_config(file)
+    app.run(debug=True, port=MNKC.port)
 
 if __name__ == '__main__':
     start_server()
