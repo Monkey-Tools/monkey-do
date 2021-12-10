@@ -1,0 +1,13 @@
+routes:
+  - id: hello_world
+    method: GET
+    route: /world/hello
+    response:
+      status: 200
+      body: hello world!
+  - id: goodbye_world
+    method: POST
+    route: /world/goodbye
+    response:
+      status: 500
+      body: the world doesn't want to leave!
