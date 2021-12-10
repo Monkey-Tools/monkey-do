@@ -1,5 +1,4 @@
 """Entity type for the config.mnkc"""
-from dataclasses import dataclass
 from typing import List
 from entities import MonkeyHandler
 

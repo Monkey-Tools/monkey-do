@@ -15,4 +15,5 @@ class MonkeyHandler():
         self.id = id
         self.method = method
         self.route = route
-        response = MonkeyResponse(**response)
+        self.response = MonkeyResponse(**response)
+        

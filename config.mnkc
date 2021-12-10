@@ -3,13 +3,13 @@ port: 5000
 handlers:
   - id: hello_world
     method: GET
-    route: /world/hello
+    route: hello/world
     response:
       status: 200
       body: hello world!
   - id: goodbye_world
     method: POST
-    route: /world/goodbye
+    route: goodbye/world
     response:
       status: 500
       body: goodbye world!
