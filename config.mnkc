@@ -13,3 +13,9 @@ handlers:
     response:
       status: 500
       body: goodbye world!
+  - id: parameterized_point
+    method: GET
+    route: things/are/{check}
+    response:
+      status: 200
+      body: they are the same

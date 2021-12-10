@@ -1,11 +1,11 @@
 """Main executor for monkey-do"""
-from click import command, option, argument
+from click import command, argument
 from flask import Flask, request
 from flask.wrappers import Response
 import yaml
 
-from entities import MonkeyResponse, MonkeySeeConfig, mnkc_config
-
+from entities import MonkeyResponse, MonkeySeeConfig
+from utilities import routes_match
 
 app = Flask('monkey_do_server')
 MNKC: MonkeySeeConfig = None
@@ -26,7 +26,7 @@ def mock_point(path: str):
 def generate_response(route: str, method: str):
     """TODO: docstring?"""
     # TODO: add a way to match parameterized routes
-    handler_matches = list(filter(lambda handler: handler.route == route, MNKC.handlers))
+    handler_matches = list(filter(lambda handler: routes_match(handler.route, route), MNKC.handlers))
 
     if len(handler_matches) == 0:
         return MonkeyResponse(500, f'No handler found matching route: {route}')
