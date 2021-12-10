@@ -1,13 +1,13 @@
 """Main executor for monkey-do"""
+from click import command, option, argument
 from flask import Flask, request
 from flask.wrappers import Response
 import yaml
 
-from entities import MonkeyResponse, MonkeySeeConfig
+from entities import MonkeyResponse, MonkeySeeConfig, mnkc_config
 
 
-app = Flask(__name__)
-PORT = 5000
+app = Flask('monkey_do_server')
 
 
 @app.route('/')
@@ -23,6 +23,7 @@ def mock_point(path: str):
 
 
 def generate_response(route: str, method: str):
+    """TODO: docstring?"""
     route_config_file = open('config.mnkc')
     config_yaml = yaml.safe_load(route_config_file.read())
     mnkc_config = MonkeySeeConfig(**config_yaml)
@@ -41,5 +42,13 @@ def generate_response(route: str, method: str):
     return handler.response
 
 
+@command()
+@argument('file')
+def start_server(file):
+    """TODO: docstring?"""
+    mnkc_yaml = yaml.safe_load(open(file).read())
+    mnkc_config = MonkeySeeConfig(**mnkc_yaml)
+    app.run(debug=True, port=mnkc_config.port)
+
 if __name__ == '__main__':
-    app.run(debug=True, port=PORT)
+    start_server()
