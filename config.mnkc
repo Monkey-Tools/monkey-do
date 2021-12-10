@@ -1,5 +1,5 @@
 # port for the server to accept requests at
-port: 5000
+port: 8484
 handlers:
   - id: hello_world
     method: GET

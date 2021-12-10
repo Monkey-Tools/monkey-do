@@ -17,15 +17,17 @@ def root():
 
 
 @app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'HEAD', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'])
-def mock_point(path: str):
+def mock_point(path: str) -> Response:
     """The proxy endpoint"""
     response = generate_response(path, request.method)
     return Response(response.body, status=response.status, mimetype='application/json')
 
 
-def generate_response(route: str, method: str):
+def generate_response(route: str, method: str) -> MonkeyResponse:
     """TODO: docstring?"""
     # TODO: add a way to match parameterized routes
+    # TODO: determine if method can be removed permanently
+    
     handler_matches = list(filter(lambda handler: routes_match(handler.route, route), MNKC.handlers))
 
     if len(handler_matches) == 0:
