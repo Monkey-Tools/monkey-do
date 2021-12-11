@@ -14,3 +14,7 @@ docker-rm:	## deletes the docker container (must be stopped first) and deletes t
 
 docker-run:	 ##run monkey-do as a docker container
 	docker run -p 8484:8484 -v /home/james/repos/monkey-do/config.mnkc:/app/config.mnkc monkey-do-docker
+
+docker-br:	 ##run docker-build and docker-run
+docker-br: docker-build
+docker-br: docker-run

@@ -8,7 +8,8 @@ from entities import MonkeyResponse, MonkeySeeConfig
 from utilities import routes_match
 
 app = Flask('monkey_do_server')
-MNKC: MonkeySeeConfig = None
+mnkc_yaml = yaml.safe_load(open('config.mnkc').read())
+MNKC: MonkeySeeConfig = MonkeySeeConfig(**mnkc_yaml)
 
 
 @app.route('/')
@@ -41,17 +42,17 @@ def generate_response(route: str, method: str) -> MonkeyResponse:
 
     return handler.response
 
-
-def load_config(file_name: str):
-    global MNKC
-    mnkc_yaml = yaml.safe_load(open(file_name).read())
-    MNKC = MonkeySeeConfig(**mnkc_yaml)
+# TODO: Re-enable config loading once the config is no longer hard coded
+# def load_config(file_name: str):
+#     global MNKC
+#     mnkc_yaml = yaml.safe_load(open(file_name).read())
+#     MNKC = MonkeySeeConfig(**mnkc_yaml)
 
 @command()
 @argument('file')
 def start_server(file):
     """TODO: docstring?"""
-    load_config(file)
+    # load_config(file)
     app.run(debug=True, port=MNKC.port)
 
 if __name__ == '__main__':
