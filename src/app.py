@@ -28,8 +28,6 @@ def mock_point(path: str) -> Response:
 def generate_response(route: str, method: str) -> MonkeyResponse:
     """Generate a MonkeyResponse from the mnkc"""
     handler_matches = list(filter(lambda handler: routes_match(handler.route, route), MNKC.handlers))
-    if len(handler_matches) == 0:
-        return MonkeyResponse(500, f'Monkey see no handler found matching route: {route}')
     for handler in handler_matches:
         if handler.method == method:
             return handler.response
