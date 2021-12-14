@@ -1,0 +1,8 @@
+{
+    "message": "hello world!",
+    "reason": "monkey see, monkey do",
+    "metadata": {
+        "version": "v1",
+        "date_created": "12-14-2021"
+    }
+}

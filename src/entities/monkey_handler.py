@@ -1,8 +1,6 @@
 """Entity for the route configurations"""
-from dataclasses import dataclass
-from uuid import UUID
-
 from entities.monkey_response import MonkeyResponse
+from entities.exceptions import MonkeySeeConfigException
 
 
 class MonkeyHandler():
@@ -15,5 +13,11 @@ class MonkeyHandler():
         self.id = id
         self.method = method
         self.route = route
-        self.response = MonkeyResponse(**response)
+        if 'body' in response.keys():
+            self.response = MonkeyResponse(**response)
+        elif 'body_file' in response.keys():
+            with open(response['body_file']) as file:
+                self.response = MonkeyResponse(response['status'], file.read())
+        else:
+            raise MonkeySeeConfigException(f'Monkey see error! The {method} {route} endpoint has no body or body_file.')
         

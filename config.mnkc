@@ -4,9 +4,9 @@ handlers:
   - id: hello_world
     method: GET
     route: hello/world
-    response:
-      status: 200
-      body: hello world!
+    response: 
+      status: 500
+      body_file: monkey-responses/hello_world.json
   - id: goodbye_world
     method: POST
     route: goodbye/world
