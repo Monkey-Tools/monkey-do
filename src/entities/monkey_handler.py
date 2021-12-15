@@ -16,7 +16,7 @@ class MonkeyHandler():
         if 'body' in response.keys():
             self.response = MonkeyResponse(**response)
         elif 'body_file' in response.keys():
-            with open(response['body_file']) as file:
+            with open(f'config/{response["body_file"]}') as file:
                 mnk_response =  {
                     'status': response['status'],
                     'body': file.read()

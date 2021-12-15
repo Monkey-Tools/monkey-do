@@ -12,9 +12,19 @@ docker-rm:	## deletes the docker container (must be stopped first) and deletes t
 	docker container prune
 	docker rmi monkey-do-docker
 
-docker-run:	 ##run monkey-do as a docker container
-	docker run -p 8484:8484 -v /home/james/repos/monkey-do/config.mnkc:/app/config.mnkc monkey-do-docker
+docker-run:	## run monkey-do as a docker container
+	docker run -p 8484:8484 \
+	-v $$HOME/.config/monkey-do:/app/config \
+	monkey-do-docker
 
-docker-br:	 ##run docker-build and docker-run
-docker-br: docker-build
-docker-br: docker-run
+config-link:    ## make a symbolic link to the config directory in the workspace, for initial linking of config directory
+	mkdir -p $$HOME/.config/monkey-do
+	ln -s $$HOME/.config/monkey-do ./config
+	cp -r ./sample_config/. ./config
+
+sample-config:	## copy config files from $HOME/.config/monkey-do, for updating sample configs in repository
+	cp -r $$HOME/.config/monkey-do ./sample_config
+
+monkey-do:	## run docker-build and docker-run
+monkey-do: docker-build
+monkey-do: docker-run

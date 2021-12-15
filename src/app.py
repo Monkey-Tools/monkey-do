@@ -9,8 +9,6 @@ from utilities import routes_match
 
 
 app = Flask('monkey_do_server')
-mnkc_yaml = yaml.safe_load(open('config.mnkc').read())
-MNKC: MonkeySeeConfig = MonkeySeeConfig(**mnkc_yaml)
 
 
 @app.route('/')
@@ -29,18 +27,23 @@ def mock_point(path: str) -> Response:
 
 def generate_response(route: str, method: str) -> MonkeyResponse:
     """Generate a MonkeyResponse from the mnkc"""
-    handler_matches = list(filter(lambda handler: routes_match(handler.route, route), MNKC.handlers))
+    handler_matches = list(filter(lambda handler: routes_match(handler.route, route), load_config().handlers))
     for handler in handler_matches:
         if handler.method == method:
             return handler.response
     return MonkeyResponse(404, f'Mokey see no {method} defined for {route}, monkey do 404.')
 
 
+def load_config() -> MonkeySeeConfig:
+    mnkc_yaml = yaml.safe_load(open('config/config.mnkc').read())
+    return MonkeySeeConfig(**mnkc_yaml)
+
+
 @command()
 @argument('file')
 def start_server(file):
     """Start the flask server"""
-    app.run(debug=True, port=MNKC.port)
+    app.run(debug=True, port=load_config().port)
 
 
 if __name__ == '__main__':
