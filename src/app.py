@@ -1,6 +1,6 @@
 """Main executor for monkey-do"""
 from click import command, argument
-from flask import Flask, request
+from flask import Flask, request, render_template_string
 from flask.wrappers import Response
 import yaml
 
@@ -22,7 +22,9 @@ def root():
 def mock_point(path: str) -> Response:
     """The proxy endpoint"""
     response = generate_response(path, request.method)
-    return Response(response.body, status=response.status, mimetype='application/json')
+    if response.mime_type == 'text/html':
+        return render_template_string(response.body)
+    return Response(response.body, status=response.status, mimetype=response.mime_type)
 
 
 def generate_response(route: str, method: str) -> MonkeyResponse:

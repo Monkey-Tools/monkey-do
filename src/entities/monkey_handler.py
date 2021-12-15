@@ -17,7 +17,13 @@ class MonkeyHandler():
             self.response = MonkeyResponse(**response)
         elif 'body_file' in response.keys():
             with open(response['body_file']) as file:
-                self.response = MonkeyResponse(response['status'], file.read())
+                mnk_response =  {
+                    'status': response['status'],
+                    'body': file.read()
+                }
+                if 'mime_type' in response.keys():
+                    mnk_response.update({'mime_type': response['mime_type']})
+                self.response = MonkeyResponse(**mnk_response)
         else:
             raise MonkeySeeConfigException(f'Monkey see error! The {method} {route} endpoint has no body or body_file.')
         

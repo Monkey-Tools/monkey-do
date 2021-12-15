@@ -6,13 +6,25 @@ handlers:
     route: hello/world
     response: 
       status: 500
+      mime_type: text/html
+      body_file: monkey-responses/hello_world.html
+  - id: hello_world_json
+    method: GET
+    route: hello/world.json
+    response:
+      status: 200
+      mime_type: application/json
       body_file: monkey-responses/hello_world.json
   - id: goodbye_world
     method: POST
     route: goodbye/world
     response:
       status: 500
-      body: goodbye world!
+      mime_type: application/json
+      body: '{
+        "data": "goodbye!"
+        "derp": "derp!"
+      }'
   - id: parameterized_point
     method: GET
     route: things/are/{check}

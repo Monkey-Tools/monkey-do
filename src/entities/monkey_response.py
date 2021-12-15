@@ -6,3 +6,4 @@ from typing import Union
 class MonkeyResponse():
     status: int
     body: Union[str, dict]
+    mime_type: str = 'text/plain'
