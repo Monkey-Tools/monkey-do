@@ -8,7 +8,7 @@ Tool to set up mock http apis quickly
 ### Hello world set up steps:
 1. To build and run the docker image first run ```make config-link``` to create a local config for monkey-do in ~/.config/monkey-do
 2. Run ```make monkey-do``` to build and run the service
-3. run ```curl localhost:8484/hello/world.json to get a json response
+3. run ```curl localhost:8484/hello/world.json``` to get a json response
 4. open http://localhost:8484/hello/world in your browser
 #
 ## Makefle:
