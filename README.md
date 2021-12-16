@@ -15,8 +15,6 @@ Tool to set up mock http apis quickly
 
 ```make config-link``` - sets up a config directory for monkey-do, copies the sample config and makes a symlink in the workspace
 
-```make requirements``` - makes a requirements.txt for pip in docker
-
 ```make monkey-do``` - build and run monkey-do
 
 ```make docker-build``` - makes requirements and builds the docker image
