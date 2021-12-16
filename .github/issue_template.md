@@ -1,9 +1,9 @@
 # Request Summary
 - [ ] New feature
 - [ ] Something is broken
-## Description:
+## Description :memo:
 [write your issue/feature description here]
-## Logs :eyes:
+## Logs :page_with_curl:
 [pastebin or some url]
-## Screenshots :eyes:
+## Screenshots :camera:
 [paste here]

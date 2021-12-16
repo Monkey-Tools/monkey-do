@@ -1,9 +1,12 @@
 # Summary of Change
-## What:
-- summarize what you changed
+## What :memo:
+...
 #
-## Why:
-- justify your change
+## Why :thinking:
+...
 #
-## Additional Notes:
-- anything else worth mentioning?
+## Screenshots :camera:
+...
+#
+## Additional Notes :spiral_notepad:
+...
