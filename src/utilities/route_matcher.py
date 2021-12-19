@@ -3,6 +3,7 @@
 
 def routes_match(config_route: str, request_route: str) -> bool:
     """checks if the routs match, ignores parameterized portions of the route"""
+    request_route = f'/{request_route}'
     config_route_chunks = config_route.split('/')
     request_route_chunks = request_route.split('/')
     crc_len = len(config_route_chunks)

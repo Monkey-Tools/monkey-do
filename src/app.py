@@ -22,7 +22,16 @@ all_methods = [
 ]
 
 
-@app.route('<path:path>', methods=all_methods)
+@app.route('/', methods=all_methods)
+def monkey_root() -> Response:
+    """handler for the root route"""
+    response = generate_response('', request.method)
+    if response.mime_type == 'text/html':
+        return render_template_string(response.body)
+    return Response(response.body, status=response.status, mimetype=response.mime_type)
+
+
+@app.route('/<path:path>', methods=all_methods)
 def mock_point(path: str) -> Response:
     """The proxy endpoint"""
     response = generate_response(path, request.method)
