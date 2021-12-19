@@ -1,23 +1,29 @@
 # port for the server to accept requests at
 port: 8484
 handlers:
-  - id: hello_world
+  - handler_id: root
     method: GET
-    route: hello/world
+    route: /
+    response:
+      status: 200
+      body: monkey-do running!
+  - handler_id: hello_world
+    method: GET
+    route: /hello/world
     response: 
       status: 500
       mime_type: text/html
       body_file: monkey-responses/hello_world.html
-  - id: hello_world_json
+  - handler_id: hello_world_json
     method: GET
-    route: hello/world.json
+    route: /hello/world.json
     response:
       status: 200
       mime_type: application/json
       body_file: monkey-responses/hello_world.json
-  - id: goodbye_world
+  - handler_id: goodbye_world
     method: POST
-    route: goodbye/world
+    route: /goodbye/world
     response:
       status: 500
       mime_type: application/json
@@ -25,9 +31,9 @@ handlers:
         "data": "goodbye!"
         "derp": "derp!"
       }'
-  - id: parameterized_point
+  - handler_id: parameterized_point
     method: GET
-    route: things/are/{check}
+    route: /things/are/{check}
     response:
       status: 200
       body: they are the same

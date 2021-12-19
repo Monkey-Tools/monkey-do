@@ -1,4 +1,4 @@
 """Definte exception types"""
 
 class MonkeySeeConfigException(Exception):
-    pass
+    """Exception for mnkc configuration errors"""

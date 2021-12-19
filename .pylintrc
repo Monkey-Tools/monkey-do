@@ -1,0 +1,4 @@
+[Master]
+disable=too-few-public-methods
+[Format]
+max-line-length=150
