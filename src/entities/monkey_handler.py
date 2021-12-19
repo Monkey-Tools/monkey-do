@@ -26,6 +26,4 @@ class MonkeyHandler():
                     mnk_response.update({'mime_type': response['mime_type']})
                 self.response = MonkeyResponse(**mnk_response)
         else:
-            raise MonkeySeeConfigException(
-                f'Monkey see error! The {method} {route} endpoint has no body or body_file.'
-            )
+            raise MonkeySeeConfigException(f'Monkey see error! The {method} {route} endpoint has no body or body_file.')
