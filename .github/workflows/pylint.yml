@@ -38,6 +38,7 @@ jobs:
           fail: true
           # If true, the action will send a PR message if pylint finds errors (default is true)
           pr-message: true
+          args: pip install -r requirements.txt
       
       # run linting
       - name: run pylint
