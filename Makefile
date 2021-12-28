@@ -28,6 +28,9 @@ monkey-do: docker-run
 lint:	## run linting on src/
 	@pylint ./src/ --fail-under 10
 
+requirements:
+	@pipenv lock -r > requirements.txt
+
 bootstrap:	## setup the local dev environment
 	@pipenv install --dev
 	@cp .githooks/pre-commit .git/hooks/pre-commit

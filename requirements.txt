@@ -1,0 +1,9 @@
+-i https://pypi.python.org/simple
+click==8.0.3
+flask==2.0.2
+gunicorn==20.1.0
+itsdangerous==2.0.1
+jinja2==3.0.3
+markupsafe==2.0.1
+pyyaml==6.0
+werkzeug==2.0.2
