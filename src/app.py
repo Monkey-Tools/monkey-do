@@ -1,5 +1,5 @@
 """Main executor for monkey-do"""
-from click import command, argument
+from click import command
 from flask import Flask, request, render_template_string
 from flask.wrappers import Response
 import yaml
@@ -9,14 +9,29 @@ from utilities import routes_match
 
 
 app = Flask('monkey_do_server')
+all_methods = [
+    'GET',
+    'POST',
+    'PUT',
+    'HEAD',
+    'DELETE',
+    'CONNECT',
+    'OPTIONS',
+    'TRACE',
+    'PATCH'
+]
 
 
-@app.route('/')
-def root():
-    return 'monkey-do running'
+@app.route('/', methods=all_methods)
+def MonkeyRoot() -> Response:
+    """handler for the root route"""
+    response = generate_response('', request.method)
+    if response.mime_type == 'text/html':
+        return render_template_string(response.body)
+    return Response(response.body, status=response.status, mimetype=response.mime_type)
 
 
-@app.route('/<path:path>', methods=['GET', 'POST', 'PUT', 'HEAD', 'DELETE', 'CONNECT', 'OPTIONS', 'TRACE', 'PATCH'])
+@app.route('/<path:path>', methods=all_methods)
 def mock_point(path: str) -> Response:
     """The proxy endpoint"""
     response = generate_response(path, request.method)
@@ -35,13 +50,14 @@ def generate_response(route: str, method: str) -> MonkeyResponse:
 
 
 def load_config() -> MonkeySeeConfig:
-    mnkc_yaml = yaml.safe_load(open('config/config.mnkc').read())
-    return MonkeySeeConfig(**mnkc_yaml)
+    """loads the config file into a MonkeySeeConfig object"""
+    with open('config/config.mnkc', encoding='utf-8') as file:
+        mnkc_yaml = yaml.safe_load(file.read())
+        return MonkeySeeConfig(**mnkc_yaml)
 
 
 @command()
-@argument('file')
-def start_server(file):
+def start_server():
     """Start the flask server"""
     app.run(debug=True, port=load_config().port)
 
