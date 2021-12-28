@@ -26,7 +26,7 @@ monkey-do: docker-build
 monkey-do: docker-run
 
 lint:	## run linting on src/
-	@pylint src/ --fail-under 10
+	@pylint ./src/ --fail-under 10
 
 bootstrap:	## setup the local dev environment
 	@pipenv install --dev
