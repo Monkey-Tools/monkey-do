@@ -23,7 +23,7 @@ all_methods = [
 
 
 @app.route('/', methods=all_methods)
-def monkey_root() -> Response:
+def MonkeyRoot() -> Response:
     """handler for the root route"""
     response = generate_response('', request.method)
     if response.mime_type == 'text/html':
