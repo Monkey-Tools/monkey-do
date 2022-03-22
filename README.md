@@ -1,5 +1,5 @@
 # monkey-do
-Tool to set up mock http apis quickly
+Tool to set up ~~mock~~ http apis quickly
 #
 ### Prerequisites:
 - python 3.9 installed
