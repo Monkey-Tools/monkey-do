@@ -17,7 +17,6 @@ COPY . /app
 
 #install dependencies
 RUN pip install pipenv
-RUN pipenv install
 RUN pipenv lock -r > requirements.txt
 RUN python -m pip install -r requirements.txt
 
